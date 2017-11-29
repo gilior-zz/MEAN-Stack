@@ -5,8 +5,8 @@ router.get('/', function (req, res, next) {
   res.render('index');
 });
 
-router.get('/message', function (req, res, next) {
-  res.render('node', {message: 'hello'})
+router.get('/message/:msg', function (req, res, next) {
+  res.render('node', {message: req.params.msg})
 })
 
 router.post('/message', function (req, res, next) {
