@@ -1,0 +1,20 @@
+<div class="row">
+    <div class="col-md-10 col-md-offset-2">
+        <article class="panel panel-default">
+            <div class="panel-body">
+                {{message.content}}
+
+            </div>
+            <footer class="panel-footer">
+                <div class="author">
+                    {{message.userName}}
+                </div>
+                <div class="config">
+                    <a (click)="onEdit()" href="#">Edit</a>
+                    <a href="#">Delete</a>
+                </div>
+            </footer>
+        </article>
+    </div>
+</div>
+

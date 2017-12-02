@@ -4,7 +4,7 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
-
+var mngs = require('mongoose');
 var appRoutes = require('./routes/app');
 
 var app = express();
@@ -27,7 +27,12 @@ app.use(function (req, res, next) {
     res.setHeader('Access-Control-Allow-Methods', 'POST, GET, PATCH, DELETE, OPTIONS');
     next();
 });
-
+mngs.connect('mongodb://lg1:JKDH098(&@ds117336.mlab.com:17336/lgdb', {useMongoClient: true}, (err) => {
+    if (!err)
+        console.log('mng connected')
+    else
+        console.log(err)
+})
 app.use('/', appRoutes);
 
 // catch 404 and forward to error handler
