@@ -6,6 +6,7 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var mngs = require('mongoose');
 var appRoutes = require('./routes/app');
+var messagesRoutes = require('./routes/messages');
 
 var app = express();
 
@@ -33,6 +34,7 @@ mngs.connect('mongodb://lg1:JKDH098(&@ds117336.mlab.com:17336/lgdb', {useMongoCl
     else
         console.log(err)
 })
+app.use('/messages', messagesRoutes);
 app.use('/', appRoutes);
 
 // catch 404 and forward to error handler

@@ -3,11 +3,11 @@ import {Message} from "../model/model";
 import {MessageService} from "../services/message";
 
 @Component({
-    selector: 'auth',
-    templateUrl: './auth.component.html',
-    styleUrls: ['./auth.component.css']
+    selector: 'my-header',
+    templateUrl: './header.component.html',
+    styleUrls: ['./header.component.css']
 })
-export class AuthComponent implements OnInit {
+export class HeaderComponent implements OnInit {
     constructor() {
 
     }
