@@ -10,7 +10,8 @@
                     {{message.userName}}
                 </div>
                 <div class="config">
-                    <a (click)="onEdit()">Edit</a>
+                    <a (click)="messageService.editMsg(message)">Edit</a>
+                    <!--<a (click)="onEditClick.emit(message)">Edit</a>-->
                     <a (click)="onDelete()">Delete</a>
                 </div>
             </footer>

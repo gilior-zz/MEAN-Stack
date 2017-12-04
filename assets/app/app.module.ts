@@ -6,7 +6,7 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {MessageComponent} from "./message/message.component";
 import {MessageListComponent} from "./message-list/message-list.component";
 import {MessageInputComponent} from "./message-input/message-input.component";
-import {MessageService} from "./services/message";
+import {MessageService} from "./services/message.service";
 import {MessagesComponent} from "./messages/messages.component";
 import {AuthComponent} from "./auth/auth.component";
 import {HeaderComponent} from "./header/header.component";
@@ -14,6 +14,7 @@ import {Routing} from "./app.routing";
 import {SigninComponent} from "./signin/signin.component";
 import {SignupComponent} from "./signup/signup.component";
 import {LogoutComponent} from "./logout/logout.component";
+import {HttpClientModule} from "@angular/common/http";
 
 
 @NgModule({
@@ -31,7 +32,7 @@ import {LogoutComponent} from "./logout/logout.component";
 
     ],
     providers: [MessageService],
-    imports: [BrowserModule, FormsModule, Routing, ReactiveFormsModule],
+    imports: [BrowserModule, FormsModule, Routing, ReactiveFormsModule,HttpClientModule],
     bootstrap: [AppComponent]
 })
 export class AppModule {

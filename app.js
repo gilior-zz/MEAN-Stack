@@ -34,7 +34,7 @@ mngs.connect('mongodb://lg1:JKDH098(&@ds117336.mlab.com:17336/lgdb', {useMongoCl
     else
         console.log(err)
 })
-app.use('/messages', messagesRoutes);
+app.use('/msgs', messagesRoutes);
 app.use('/', appRoutes);
 
 // catch 404 and forward to error handler

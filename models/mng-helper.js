@@ -8,12 +8,18 @@ var obj = {
         return mngs.model(name, schema);
     },
     schema: Schema,
-    save:function (obj) {
+    save: function (obj) {
         obj.save()
     },
-    findOne:  function (obj) {
+    findOne: function (obj) {
         return obj.findOne();
+    },
+    getAll:  function (obj) {
+           return   obj.find();
+
     }
+
+
 }
 
 module.exports = obj;

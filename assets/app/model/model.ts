@@ -1,8 +1,8 @@
 export class Message {
-    constructor(private  content: string,
-                private  userName: string,
-                private  id?: string,
-                private  userId?: string) {
+    constructor(public  content: string,
+                public  userName: string,
+                public  id?: string,
+                public  userId?: string) {
 
     }
 }

@@ -1,6 +1,6 @@
-import {Component, OnInit} from "@angular/core";
+import {Component, EventEmitter, OnInit, Output} from "@angular/core";
 import {Message} from "../model/model";
-import {MessageService} from "../services/message";
+import {MessageService} from "../services/message.service";
 
 @Component({
     selector: 'message-list',
@@ -13,9 +13,13 @@ export class MessageListComponent implements OnInit {
     }
 
     messages: Message[];
+    @Output() onEditClick:EventEmitter<Message>=new EventEmitter();
 
     ngOnInit(): void {
-        this.messages = this.messageService.getMessage();
+        this.messageService.getMessage().subscribe((msgs:Message[])=> {
+            console.log(msgs)
+            this.messages = msgs;
+        });
     }
 
 

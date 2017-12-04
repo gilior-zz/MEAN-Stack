@@ -2,10 +2,12 @@
     <form (ngSubmit)="onSubmit(f)" #f="ngForm">
         <div class="form-group">
             <label for="content">
-                <input required name="content" ngModel  type="text" id="content" class="form-control">
+                <input required name="content" [ngModel]="_message?.content" type="text" id="content"
+                       class="form-control">
             </label>
         </div>
         <button [disabled]="f.form.invalid" class="btn btn-primary" type="submit">Save</button>
+        <button (click)="f.reset()" [disabled]="f.form.pristine" class="btn btn-primary" type="button">clear</button>
 
     </form>
 </div>
