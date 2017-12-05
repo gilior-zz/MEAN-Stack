@@ -26,7 +26,7 @@ export class MessageService {
             .map((res) => {
                     console.log(res)
                     const newMsg = res.obj;
-                    const localMsg = new Message(newMsg.content, 'dummy', newMsg._id, null);
+                    const localMsg = new Message(newMsg.content,newMsg.user.firstName, newMsg._id, newMsg.user._id);
                     this.messages.push(localMsg)
                     return localMsg;
                 }
@@ -53,7 +53,7 @@ export class MessageService {
                     console.log(v);
                     let msgs: Message[] = [];
                     for (let msg of v.obj) {
-                        let newMsg: Message = new Message(msg.content, 'LG', msg._id, 'dummy')
+                        let newMsg: Message = new Message(msg.content,msg.user.firstName, msg._id,msg.user._id)
                         msgs.push(newMsg);
                     }
                     this.messages = msgs;

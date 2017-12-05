@@ -9,16 +9,17 @@ schema = new Schema({
     user: {type: mngsHelper.schema.Types.ObjectId, ref: 'User'}
 });
 schema.plugin(unique);
-var model = mngs.model('Message', schema);
 schema.post('remove', (msg) => {
     User.findById(msg.user, (err, usr) => {
         if (usr && !err) {
             usr.messages.pull(msg)
-            user.save();
+            usr.save();
         }
 
     })
 })
+var model = mngs.model('Message', schema);
+
 module.exports = model;
 
 

@@ -27,11 +27,14 @@ export class AuthService {
         return localStorage.getItem('id')
     }
 
-    sginin(user: User,routes:Routes) {
+    user: User;
+
+    sginin(user: User, routes: Routes) {
         return this.http.post(this.url + '/signin', user)
             .map(res => {
                 console.log(res);
-                this.changeRoutes(routes)
+                this.changeRoutes(routes);
+                this.user=res.obj;
                 return res;
             })
             .catch(err => {

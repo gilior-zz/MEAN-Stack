@@ -9,7 +9,7 @@
                 <div class="author">
                     {{message.userName}}
                 </div>
-                <div class="config">
+                <div class="config" *ngIf="message.userId===userId">
                     <a (click)="messageService.editMsg(message)">Edit</a>
                     <!--<a (click)="onEditClick.emit(message)">Edit</a>-->
                     <a (click)="onDelete()">Delete</a>

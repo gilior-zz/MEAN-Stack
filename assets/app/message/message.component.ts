@@ -25,4 +25,7 @@ export class MessageComponent {
     onDelete() {
      this.messageService.deleteMessage(this.message).subscribe();
     }
+
+
+    get userId():string{return localStorage.getItem('id')}
 }
