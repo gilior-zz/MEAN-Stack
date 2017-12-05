@@ -1,26 +1,27 @@
-import {HttpClient} from "@angular/common/http";
+import {HttpClient, HttpErrorResponse} from "@angular/common/http";
 import {Injectable} from "@angular/core";
 import {User} from "../model/model";
 import 'rxjs/Rx';
 import {Observable} from "rxjs/Observable";
 import {Router, Routes} from "@angular/router";
-import {MessagesComponent} from "../messages/messages.component";
-import {AuthComponent} from "../auth/auth.component";
-import {SignupComponent} from "../signup/signup.component";
-import {SigninComponent} from "../signin/signin.component";
-import {LogoutComponent} from "../logout/logout.component";
+import {MessagesComponent} from "../messages-module/messages/messages.component";
+import {AuthComponent} from "../auth-module/auth/auth.component";
+import {SignupComponent} from "../auth-module/signup/signup.component";
+import {SigninComponent} from "../auth-module/signin/signin.component";
+import {LogoutComponent} from "../auth-module/logout/logout.component";
+import {ErrorService} from "./error.service";
 
 @Injectable()
 export class AuthService {
     url: string = 'http://localhost:3000/usr'
 
-    constructor(private   http: HttpClient, private rtr: Router) {
+    constructor(private   http: HttpClient, private rtr: Router, private  errorService: ErrorService) {
     }
 
 
-    signOut(routes: Routes) {
+    signOut() {
         localStorage.clear();
-        this.changeRoutes(routes);
+        // this.changeRoutes(routes);
     }
 
     get validUser() {
@@ -29,17 +30,19 @@ export class AuthService {
 
     user: User;
 
-    sginin(user: User, routes: Routes) {
+    sginin(user: User) {
         return this.http.post(this.url + '/signin', user)
             .map(res => {
                 console.log(res);
-                this.changeRoutes(routes);
-                this.user=res.obj;
+                // this.changeRoutes(routes);
+                this.user = res.obj;
                 return res;
             })
-            .catch(err => {
-                console.log(err);
-                Observable.throw(err)
+            .catch((err: HttpErrorResponse) => {
+
+
+                this.errorService.openDialog(err.error.title, err.error.error.message)
+                return Observable.throw(err)
             })
     }
 
@@ -55,8 +58,8 @@ export class AuthService {
                 return newUser;
             })
             .catch(err => {
-                console.log(err);
-                Observable.throw(err);
+                this.errorService.openDialog(err.error.title, err.error.error.message)
+                return Observable.throw(err)
             })
     }
 }

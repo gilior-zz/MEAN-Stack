@@ -1,7 +1,8 @@
 import {Component, Input, OnInit} from "@angular/core";
-import {MessageService} from "../services/message.service";
-import {Message} from "../model/model";
+
 import {NgForm} from "@angular/forms";
+import {MessageService} from "../../services/message.service";
+import {Message} from "../../model/model";
 
 @Component({
     selector: 'message-input',

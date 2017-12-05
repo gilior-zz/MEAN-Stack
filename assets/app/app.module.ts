@@ -3,37 +3,25 @@ import {BrowserModule} from '@angular/platform-browser';
 
 import {AppComponent} from "./app.component";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
-import {MessageComponent} from "./message/message.component";
-import {MessageListComponent} from "./message-list/message-list.component";
-import {MessageInputComponent} from "./message-input/message-input.component";
-import {MessageService} from "./services/message.service";
-import {MessagesComponent} from "./messages/messages.component";
-import {AuthComponent} from "./auth/auth.component";
 import {HeaderComponent} from "./header/header.component";
-import {AppRoutingModule, Routing} from "./app.routing";
-import {SigninComponent} from "./signin/signin.component";
-import {SignupComponent} from "./signup/signup.component";
-import {LogoutComponent} from "./logout/logout.component";
+import {AppRoutingModule} from "./app.routing";
 import {HttpClientModule} from "@angular/common/http";
-import {AuthService} from "./services/auth.service";
+import {ErrorComponent} from "./errors/error.component";
+import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
+import {MatDialogModule} from "@angular/material";
+import {CoreModule} from "./core.module";
+import {SharedModule} from "./shared.module";
 
 
 @NgModule({
     declarations: [
         AppComponent,
-        MessageComponent,
-        MessageListComponent,
-        MessageInputComponent,
-        MessagesComponent,
-        AuthComponent,
         HeaderComponent,
-        SigninComponent,
-        SignupComponent,
-        LogoutComponent
-
+        ErrorComponent
     ],
-    providers: [MessageService,AuthService],
-    imports: [BrowserModule, FormsModule, AppRoutingModule, ReactiveFormsModule,HttpClientModule],
+    providers: [],
+    imports: [BrowserModule, AppRoutingModule, HttpClientModule, BrowserAnimationsModule, MatDialogModule, CoreModule,SharedModule],
+    entryComponents: [ErrorComponent],
     bootstrap: [AppComponent]
 })
 export class AppModule {

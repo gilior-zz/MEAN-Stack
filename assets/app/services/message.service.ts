@@ -6,12 +6,13 @@ import {HttpClient, HttpParams} from "@angular/common/http";
 import {EventEmitter, Injectable, Output} from "@angular/core";
 import {Observable} from "rxjs/Observable";
 import {QueryParamsHandling} from "@angular/router/src/config";
+import {ErrorService} from "./error.service";
 
 @Injectable()
 export class MessageService {
     url: string = 'http://localhost:3000/msgs/';
 
-    constructor(private  http: HttpClient) {
+    constructor(private  http: HttpClient, private errorService: ErrorService) {
 
     }
 
@@ -26,12 +27,15 @@ export class MessageService {
             .map((res) => {
                     console.log(res)
                     const newMsg = res.obj;
-                    const localMsg = new Message(newMsg.content,newMsg.user.firstName, newMsg._id, newMsg.user._id);
+                    const localMsg = new Message(newMsg.content, newMsg.user.firstName, newMsg._id, newMsg.user._id);
                     this.messages.push(localMsg)
                     return localMsg;
                 }
             )
-            .catch(err => console.log(err))
+            .catch(err => {
+                this.errorService.openDialog(err.error.title, err.error.error.message)
+                return Observable.throw(err)
+            })
     }
 
     @Output() msgToEdit: EventEmitter<Message> = new EventEmitter<Message>();
@@ -53,7 +57,7 @@ export class MessageService {
                     console.log(v);
                     let msgs: Message[] = [];
                     for (let msg of v.obj) {
-                        let newMsg: Message = new Message(msg.content,msg.user.firstName, msg._id,msg.user._id)
+                        let newMsg: Message = new Message(msg.content, msg.user.firstName, msg._id, msg.user._id)
                         msgs.push(newMsg);
                     }
                     this.messages = msgs;

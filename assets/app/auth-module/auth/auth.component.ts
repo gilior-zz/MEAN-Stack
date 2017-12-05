@@ -1,7 +1,7 @@
 import {Component, OnInit} from "@angular/core";
-import {Message} from "../model/model";
-import {MessageService} from "../services/message.service";
-import {AuthService} from "../services/auth.service";
+import {Message} from "../../model/model";
+import {MessageService} from "../../services/message.service";
+import {AuthService} from "../../services/auth.service";
 
 @Component({
     selector: 'auth',

@@ -1,7 +1,7 @@
 import {Component, EventEmitter, Input, Output} from '@angular/core'
-import {Message, User} from "../model/model";
+import {Message, User} from "../../model/model";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
-import {AuthService} from "../services/auth.service";
+import {AuthService} from "../../services/auth.service";
 
 
 @Component({

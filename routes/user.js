@@ -15,7 +15,7 @@ router.post('/', (req, res, next) => {
     })
 
     user.save((err, user) => {
-        if (err)  return res.status(500).json({
+        if (err) return res.status(500).json({
             title: 'not saved',
             error: {err}
         })
@@ -24,15 +24,12 @@ router.post('/', (req, res, next) => {
     })
 })
 
-router.post('/signin', (req,res,next) => {
+router.post('/signin', (req, res, next) => {
     User.findOne({email: req.body.email}, (err, user) => {
-        if (err) return res.status(401).json({
-            title: 'couldnt get user',
-            error: {err}
-        })
+        if (err) return res.status(401).json({title: 'couldnt get user', error: {err}})
         if (!bcrypt.compareSync(req.body.pwd, user.pwd)) return res.status(500).json({
             title: 'invalid pwd',
-            error: {messgae:'invalid pwd'}
+            error: {message: 'invalid pwd'}
         })
         var tkn = jwt.sign({user: user}, 'secret', {expiresIn: 7200})
         res.status(200).json({msg: 'logged in', obj: user, tkn: tkn})
