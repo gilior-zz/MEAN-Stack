@@ -2,13 +2,14 @@ import {Message} from "../model/model";
 
 import 'rxjs/Rx';
 
-import {HttpClient} from "@angular/common/http";
+import {HttpClient, HttpParams} from "@angular/common/http";
 import {EventEmitter, Injectable, Output} from "@angular/core";
 import {Observable} from "rxjs/Observable";
+import {QueryParamsHandling} from "@angular/router/src/config";
 
 @Injectable()
 export class MessageService {
-    url: string = 'http://localhost:3000/';
+    url: string = 'http://localhost:3000/msgs/';
 
     constructor(private  http: HttpClient) {
 
@@ -16,9 +17,12 @@ export class MessageService {
 
     messages: Message[] = [];
 
-    addMessge(msg: Message): Observable<any> {
+    get tkn(): HttpParams {
+        return new HttpParams().set('tkn', localStorage.getItem('tkn') || '');
+    }
 
-        return this.http.post('http://localhost:3000/msgs', msg)
+    addMessge(msg: Message): Observable<any> {
+        return this.http.post(this.url, msg, {params: this.tkn})
             .map((res) => {
                     console.log(res)
                     const newMsg = res.obj;
@@ -37,14 +41,14 @@ export class MessageService {
     }
 
     updateMsg(msg: Message): Observable<any> {
-        return this.http.patch(this.url + 'msgs/' + msg.id, msg).map(i => {
+        return this.http.patch(this.url + msg.id, msg, {params: this.tkn}).map(i => {
             console.log(i);
             return i;
         })
     }
 
     getMessage(): Observable<any> {
-        return this.http.get('http://localhost:3000/msgs')
+        return this.http.get(this.url)
             .map((v) => {
                     console.log(v);
                     let msgs: Message[] = [];
@@ -61,7 +65,7 @@ export class MessageService {
 
     deleteMessage(msg: Message): Observable<any> {
         this.messages.splice(this.messages.indexOf(msg), 1);
-        return this.http.delete(this.url + 'msgs/' + msg.id).map(i => {
+        return this.http.delete(this.url + msg.id, {params: this.tkn}).map(i => {
             console.log(i);
             return i;
         })

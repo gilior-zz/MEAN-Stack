@@ -10,11 +10,12 @@ import {MessageService} from "./services/message.service";
 import {MessagesComponent} from "./messages/messages.component";
 import {AuthComponent} from "./auth/auth.component";
 import {HeaderComponent} from "./header/header.component";
-import {Routing} from "./app.routing";
+import {AppRoutingModule, Routing} from "./app.routing";
 import {SigninComponent} from "./signin/signin.component";
 import {SignupComponent} from "./signup/signup.component";
 import {LogoutComponent} from "./logout/logout.component";
 import {HttpClientModule} from "@angular/common/http";
+import {AuthService} from "./services/auth.service";
 
 
 @NgModule({
@@ -31,8 +32,8 @@ import {HttpClientModule} from "@angular/common/http";
         LogoutComponent
 
     ],
-    providers: [MessageService],
-    imports: [BrowserModule, FormsModule, Routing, ReactiveFormsModule,HttpClientModule],
+    providers: [MessageService,AuthService],
+    imports: [BrowserModule, FormsModule, AppRoutingModule, ReactiveFormsModule,HttpClientModule],
     bootstrap: [AppComponent]
 })
 export class AppModule {

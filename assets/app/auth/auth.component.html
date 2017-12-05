@@ -1,10 +1,9 @@
-<h1>Auth</h1>
 <header class="row">
     <nav class="col-md-8 col-md-offset-2">
         <ul class="nav nav-tabs">
-            <li><a routerLinkActive="active" routerLink="signin">signin</a></li>
-            <li><a routerLinkActive="active" routerLink="signup">signup</a></li>
-            <li><a routerLinkActive="active" routerLink="logout">logout</a></li>
+            <li *ngIf="!authService.validUser"><a routerLinkActive="active" routerLink="signin">signin</a></li>
+            <li *ngIf="!authService.validUser"><a routerLinkActive="active" routerLink="signup">signup</a></li>
+            <li *ngIf="authService.validUser"><a routerLinkActive="active" routerLink="logout">logout</a></li>
         </ul>
     </nav>
 </header>

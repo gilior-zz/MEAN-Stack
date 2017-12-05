@@ -1,18 +1,55 @@
 var express = require('express')
-
+var jwt = require('jsonwebtoken')
 var Message = require('../models/messages')
 var helper = require('../models/mng-helper')
 var router = express.Router();
+var User=require('../models/user')
+
+router.get('/', (req, res, next) => {
+    // Message.find((err, msgs) => {
+    //     if (err) return res.status(500).json(err)
+    //     res.status(200).json(msgs)
+    // })
+
+    Message.find().exec((err, msgs) => {
+        if (err) return res.status(500).json(err)
+        res.status(200).json({
+            msg: 'getAll good',
+            obj: msgs
+        })
+    })
+})
+
+router.use('/', (req, res, next) => {
+        try {
+            var user = jwt.verify(req.query.tkn, 'secret');
+            next();
+        } catch (err) {
+            return res.status(401).json({msg: 'wrong tkn', err: err})
+        }
+    }
+)
 
 router.post('/', (req, res, next) => {
-    var msg = new Message({
-        content: req.body.content
-    });
-    msg.save(function (err, saveRes) {
-        if (err)
-            return res.status(500).json({title: 'err occured', err: err})
-        res.status(200).json({msg: 'saved', obj: saveRes})
+    var decoded = jwt.decode(req.query.tkn);
+    User.findById(decoded.user._id, (err, user) => {
+        if (err) return res.status(404).json({msg: 'couldnt find user', err: err})
+        var msg = new Message({
+            content: req.body.content,
+            user: user
+        });
+        msg.save(function (err, saveRes) {
+            if (err)
+                return res.status(500).json({title: 'err occured', err: err})
+            user.messages.push(msg);
+            user.save((err, savedUser) => {
+                if (err) return res.status(500).json({msg: 'couldnt add new msg to user', err: err})
+                res.status(200).json({msg: 'saved', obj: saveRes})
+            })
+
+        })
     })
+
 })
 
 router.patch('/:id', (req, res, next) => {
@@ -38,21 +75,6 @@ router.delete('/:id', (req, res, next) => {
         msg.remove((err, delRes) => {
             if (err) return res.status(500).json({err: 'oops couldnt delete msg'})
             res.status(200).json({msg: 'deleted msg', obj: delRes})
-        })
-    })
-})
-
-router.get('/', (req, res, next) => {
-    // Message.find((err, msgs) => {
-    //     if (err) return res.status(500).json(err)
-    //     res.status(200).json(msgs)
-    // })
-
-    Message.find().exec((err, msgs) => {
-        if (err) return res.status(500).json(err)
-        res.status(200).json({
-            msg: 'getAll good',
-            obj: msgs
         })
     })
 })

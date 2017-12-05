@@ -7,14 +7,12 @@ export class Message {
     }
 }
 
-export  class User{
-    constructor(
-        private  email:string,
-        private  pwd:string,
-        private  firstName?:string,
-        private  lastName?:string
-
-    ){
+export class User {
+    constructor(public  email: string,
+                public  pwd: string,
+                public  firstName?: string,
+                public  lastName?: string,
+                public  id?: string) {
 
     }
 }

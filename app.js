@@ -7,7 +7,7 @@ var bodyParser = require('body-parser');
 var mngs = require('mongoose');
 var appRoutes = require('./routes/app');
 var messagesRoutes = require('./routes/messages');
-
+var userRoutes=require('./routes/user')
 var app = express();
 
 // view engine setup
@@ -35,6 +35,7 @@ mngs.connect('mongodb://lg1:JKDH098(&@ds117336.mlab.com:17336/lgdb', {useMongoCl
         console.log(err)
 })
 app.use('/msgs', messagesRoutes);
+app.use('/usr', userRoutes);
 app.use('/', appRoutes);
 
 // catch 404 and forward to error handler
